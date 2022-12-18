@@ -47,7 +47,7 @@ def intersect_lines(l1: tuple[int, int], l2: tuple[int, int]) -> tuple[int, int]
     dir1, a = l1
     dir2, b = l2
     if dir1 + dir2 != 0:
-        return None
+        raise Exception("These lines do not intersect")
     return ((a + b) // 2, dir1 * (b - a) // 2)
 
 lines: list[tuple[int, int]] = []
