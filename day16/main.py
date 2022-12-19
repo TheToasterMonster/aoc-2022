@@ -34,7 +34,7 @@ def explore(valve: str, time: int, curr_pres: int=0, total_pres: int=0) -> int:
     if time == 0:
         return total_pres
     total_pres += curr_pres
-    leave = max(map(lambda v: explore(v, time-1, curr_pres, total_pres)))
+    leave = max(map(lambda v: explore(v, time-1, curr_pres, total_pres), valves[valve].adj))
     take = 0
     if valves[valve].rate == 0:
         take = max(
