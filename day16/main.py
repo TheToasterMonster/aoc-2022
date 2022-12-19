@@ -3,9 +3,9 @@ import pprint
 pp = pprint.PrettyPrinter()
 
 class Valve:
-    def __init__(self, rate: int, adj: list[str]):
-        self.rate = rate
-        self.adj = adj
+    def __init__(self, rate: int, adj: list[str]) -> None:
+        self.rate: int = rate
+        self.adj: list[str] = adj
 
     def __repr__(self) -> str:
         return f"Valve(rate={self.rate}, adj={self.adj})"
@@ -30,17 +30,10 @@ with open(INPUT_FILE) as f:
 
 # pp.pprint(valves)
 
-def explore(valve: str, time: int, curr_pres: int=0, total_pres: int=0) -> int:
-    if time == 0:
-        return total_pres
-    total_pres += curr_pres
-    leave = max(map(lambda v: explore(v, time-1, curr_pres, total_pres), valves[valve].adj))
-    take = 0
-    if valves[valve].rate == 0:
-        take = max(
-                map(
-                    lambda v: explore(v, time-2, curr_pres+valves[valve].rate, total_pres),
-                    valves[valve].adj))
-    return max(take, leave)
+class Data:
+    def __init__(self) -> None:
+        self.rate: int = 0
+        self.total: int = 0
+        self.path: set[str] = set()
 
-print(f"Part 1: {explore('AA', 30)}")
+rounds: list[dict[str, Data]] = [{s: Data() for s in valves} for _ in range(31)]
